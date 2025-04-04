@@ -9,14 +9,14 @@ import (
 	"time"
 )
 
-type Clerk struct {
+type Client struct {
 	servers       []string
 	transactionId int64
 	clientID      int64
 }
 
-func MakeClerk(servers []string) *Clerk {
-	ck := new(Clerk)
+func MakeClient(servers []string) *Client {
+	ck := new(Client)
 	ck.servers = servers
 	ck.transactionId = 1
 	ck.clientID = nrand()
@@ -48,7 +48,7 @@ func nrand() int64 {
 
 var globalId int64 = 0
 
-func (ck *Clerk) generateID() string {
+func (ck *Client) generateID() string {
 	var ret string
 	ck.transactionId++
 	atomic.AddInt64(&globalId, 1)
@@ -60,7 +60,7 @@ func (ck *Clerk) generateID() string {
 	return ret
 }
 
-func (ck *Clerk) Get(key string) string {
+func (ck *Client) Get(key string) string {
 	args := GetArgs{
 		Key:       key,
 		RequestID: ck.generateID(),
@@ -77,7 +77,7 @@ func (ck *Clerk) Get(key string) string {
 	}
 }
 
-func (ck *Clerk) Put(key string, value string) string {
+func (ck *Client) Put(key string, value string) string {
 	args := PutArgs{
 		Key:       key,
 		Value:     value,

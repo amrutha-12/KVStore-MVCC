@@ -5,7 +5,7 @@ import "kvstore/kvstore"
 func main() {
 	servers := []string{"localhost:1234"}
 	kvstore.StartServer(servers, 0)
-	client := kvstore.MakeClerk(servers)
+	client := kvstore.MakeClient(servers)
 
 	putResult1 := client.Put("key1", "value1")
 	putResult2 := client.Put("key2", "value2")

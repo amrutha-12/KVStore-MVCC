@@ -20,7 +20,7 @@ func DPrintf(format string, a ...interface{}) (n int, err error) {
 }
 
 type Op struct {
-	Operation string // can be GET or PUT
+	Operation string
 	Key       string
 	Value     string
 	RequestID string
@@ -76,8 +76,6 @@ func (kv *KVStore) Put(args *PutArgs, reply *PutReply) error {
 	return nil
 }
 
-// applyChange Applies the operation (Op) to the server database.
-// the caller should hold the lock
 func (kv *KVStore) applyChange(op Op) (Err, string) {
 	if op.Operation == "Put" {
 
